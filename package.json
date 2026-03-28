@@ -1,0 +1,12 @@
+{
+  "name": "jueshi-dahao",
+  "version": "1.0.0",
+  "description": "菊势大好 — 提肛游戏SKILL。你的AI助理学会了一个游戏，会在工作间隙陪你提肛。",
+  "author": "Ank",
+  "license": "MIT",
+  "homepage": "https://github.com/你的用户名/jueshi-dahao",
+  "keywords": ["game", "health", "kegel", "fun", "chinese"],
+  "openclaw": {
+    "skill": true
+  }
+}
