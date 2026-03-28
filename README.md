@@ -79,28 +79,11 @@ openclaw skills install jueshi-dahao
 
 三个月封神。
 
-## 神谕系统（可选，给DM用）
+## 神谕系统（DM专用，不含在SKILL中）
 
-如果你是游戏运营方（DM），可以连接 Google Sheet 实现全局控制：
+如果你是游戏运营方（DM），想要管理多个玩家的排行榜和全局事件，可以自行搭建神谕系统（Shared World Protocol）。这是DM的运营工具，不需要玩家安装任何额外配置。
 
-在 `~/.openclaw/openclaw.json` 中配置：
-
-```json
-{
-  "skills": {
-    "entries": {
-      "jueshi-dahao": {
-        "enabled": true,
-        "env": {
-          "JUESHI_API_URL": "你的 Google Apps Script Web App URL"
-        }
-      }
-    }
-  }
-}
-```
-
-详见 [神谕系统配置指南](docs/oracle-setup.md)（即将推出）。
+详见设计文档。
 
 ## 技术架构
 
@@ -108,16 +91,16 @@ openclaw skills install jueshi-dahao
 用户 Agent（OpenClaw）
 ├── SKILL.md        ← 游戏规则和对话逻辑
 ├── player_data.md  ← 本地玩家存档（自动创建）
-├── HEARTBEAT.md    ← 定时触发提肛检查
-│
-└── 神谕系统（可选）
-    └── Google Sheet
-        ├── config         ← 全局配置（DM可编辑）
-        ├── events         ← 活动事件
-        ├── user_log       ← 所有用户打卡记录
-        ├── user_status    ← 权威称号判定
-        ├── broadcast      ← 公告推送
-        └── leaderboard    ← 排行榜
+└── HEARTBEAT.md    ← 定时触发提肛检查
+
+DM 侧（不含在SKILL中，运营方自行搭建）
+└── Google Sheet（神谕系统）
+    ├── config         ← 全局配置
+    ├── events         ← 活动事件
+    ├── user_log       ← 所有用户打卡记录
+    ├── user_status    ← 权威称号判定
+    ├── broadcast      ← 公告推送
+    └── leaderboard    ← 排行榜
 ```
 
 核心设计理念：**Shared World Protocol**（共享世界协议）—— 每个用户的 Agent 是独立自治的，但共享同一个由DM维护的世界状态。Agent不是NPC，是学会了一个游戏的助理；DM不是面对面说话，而是通过一张Sheet传递神谕。

@@ -207,50 +207,6 @@ metadata: {"openclaw":{"emoji":"🌼","always":true}}
 
 用户可以随时问：
 - "我的菊花状态" / "菊花进度" / "/status" → 显示当前称号、累计组数、今日进度、距下一称号距离
-- "菊花排行" / "/leaderboard" → （如果神谕系统可用）显示排行榜数据
-
-## 神谕系统（Shared World Protocol）
-
-如果配置了神谕系统的API地址（通过环境变量 `JUESHI_API_URL`），SKILL会在以下时机访问外部API：
-
-### 写入（每次完成时）
-```bash
-curl -s -X POST "$JUESHI_API_URL?action=log" \
-  -H "Content-Type: application/json" \
-  -d '{"user_id":"USER_ID","timestamp":"ISO_TIME","sets":1,"level":"LEVEL"}'
-```
-
-### 读取（heartbeat时、查询排行榜时）
-```bash
-# 读取配置
-curl -s "$JUESHI_API_URL?action=config"
-
-# 读取用户权威状态（称号验证）
-curl -s "$JUESHI_API_URL?action=user_status&user_id=USER_ID"
-
-# 读取排行榜
-curl -s "$JUESHI_API_URL?action=leaderboard"
-
-# 读取广播
-curl -s "$JUESHI_API_URL?action=broadcast&user_id=USER_ID"
-```
-
-如果环境变量未设置或API不可用，游戏完全基于本地 player_data.md 运行，不影响核心体验。神谕系统是增强层，不是依赖项。
-
-### 称号验证
-如果神谕系统可用，每次完成提肛后：
-1. 先写日志到神谕系统
-2. 读取 user_status 获取权威称号和总组数
-3. 用权威数据更新本地 player_data.md
-4. 如果本地和权威不一致，以权威为准
-
-如果神谕系统不可用，本地自行计算称号（降级模式）。
-
-### 广播处理
-heartbeat时如果读到未推送的广播消息，在回复中展示：
-```
-📢 菊花快报：{广播内容}
-```
 
 ## 重要提醒
 
