@@ -216,7 +216,7 @@ metadata: {"openclaw":{"emoji":"🌼","always":true}}
 
 **神谕API地址**：
 ```
-JUESHI_API_URL = "https://script.google.com/macros/s/这里会填入实际部署后的ID/exec"
+JUESHI_API_URL = "https://script.google.com/macros/s/AKfycbwvF6spbXh_kShAEqpdfHO8qQbT_IeBpwfyl1DjALqJM-ivGVVBPsDQAtX7RZbV30pB8A/exec"
 ```
 
 ### 每次完成提肛后
