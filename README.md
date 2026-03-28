@@ -21,14 +21,14 @@
 跟你的 OpenClaw Agent 说：
 
 ```
-帮我安装这个SKILL：https://github.com/你的用户名/jueshi-dahao
+帮我安装这个SKILL：https://github.com/ankwu001/jushidahao
 ```
 
 Agent 会自动执行：
 
 ```bash
 cd ~/.openclaw/workspace/skills
-git clone https://github.com/你的用户名/jueshi-dahao.git jueshi-dahao
+git clone https://github.com/ankwu001/jushidahao.git jueshi-dahao
 ```
 
 或者手动安装：
@@ -36,7 +36,7 @@ git clone https://github.com/你的用户名/jueshi-dahao.git jueshi-dahao
 ```bash
 # 方法1：git clone
 cd ~/.openclaw/workspace/skills
-git clone https://github.com/你的用户名/jueshi-dahao.git jueshi-dahao
+git clone https://github.com/ankwu001/jushidahao.git jueshi-dahao
 
 # 方法2：通过 ClawHub
 openclaw skills install jueshi-dahao
