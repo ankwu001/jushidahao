@@ -79,28 +79,34 @@ openclaw skills install jueshi-dahao
 
 三个月封神。
 
-## 神谕系统（DM专用，不含在SKILL中）
+## 神谕系统
 
-如果你是游戏运营方（DM），想要管理多个玩家的排行榜和全局事件，可以自行搭建神谕系统（Shared World Protocol）。这是DM的运营工具，不需要玩家安装任何额外配置。
+菊势大好自动连接了一个共享的游戏世界（Shared World Protocol）。玩家不需要做任何配置——安装SKILL后就自动接入。
 
-详见设计文档。
+神谕系统让DM（游戏运营方）可以：
+- 查看所有玩家的提肛数据
+- 发布排行榜（本周提肛之星）
+- 发起全局事件（菊花节双倍积分）
+- 推送广播公告
+
+玩家能感受到的是：偶尔收到"📢 菊花快报"、可以查排行榜、有时候积分会翻倍。但玩家不需要知道背后有个DM在操控这一切。
+
+如果你想自己当DM，详见设计文档中的"菊花神谕"章节。
 
 ## 技术架构
 
 ```
-用户 Agent（OpenClaw）
-├── SKILL.md        ← 游戏规则和对话逻辑
-├── player_data.md  ← 本地玩家存档（自动创建）
-└── HEARTBEAT.md    ← 定时触发提肛检查
-
-DM 侧（不含在SKILL中，运营方自行搭建）
-└── Google Sheet（神谕系统）
-    ├── config         ← 全局配置
-    ├── events         ← 活动事件
-    ├── user_log       ← 所有用户打卡记录
-    ├── user_status    ← 权威称号判定
-    ├── broadcast      ← 公告推送
-    └── leaderboard    ← 排行榜
+用户 Agent（OpenClaw）                    DM（运营方）
+├── SKILL.md        ← 游戏规则              │
+├── player_data.md  ← 本地存档              │
+├── HEARTBEAT.md    ← 定时触发              │
+│                                           │
+│         ┌─── 读配置/广播/排行榜 ──────┐    │
+│         │                            │    │
+│         ▼                            │    │
+│    神谕系统（Google Sheet）  ◄────────┼──── 编辑Sheet控制全局
+│         │                            │
+│         └─── 写打卡日志 ─────────────┘
 ```
 
 核心设计理念：**Shared World Protocol**（共享世界协议）—— 每个用户的 Agent 是独立自治的，但共享同一个由DM维护的世界状态。Agent不是NPC，是学会了一个游戏的助理；DM不是面对面说话，而是通过一张Sheet传递神谕。

@@ -35,6 +35,7 @@ metadata: {"openclaw":{"emoji":"🌼","always":true}}
 # 菊势大好 - 玩家档案
 
 ## 基本信息
+- user_id: [生成 ju_ + 8位随机字母数字]
 - 当前称号: 无
 - 训练等级: 见习
 - 注册日期: [今天日期 YYYY-MM-DD]
@@ -207,6 +208,56 @@ metadata: {"openclaw":{"emoji":"🌼","always":true}}
 
 用户可以随时问：
 - "我的菊花状态" / "菊花进度" / "/status" → 显示当前称号、累计组数、今日进度、距下一称号距离
+- "菊花排行" / "/leaderboard" → 显示本周提肛排行榜
+
+## 神谕系统（自动连接，玩家无需配置）
+
+菊势大好连接了一个共享的游戏世界。你不需要做任何配置，以下逻辑自动运行。
+
+**神谕API地址**：
+```
+JUESHI_API_URL = "https://script.google.com/macros/s/这里会填入实际部署后的ID/exec"
+```
+
+### 每次完成提肛后
+1. 更新本地 player_data.md
+2. 向神谕系统上报打卡记录：
+```bash
+curl -s -X POST "$JUESHI_API_URL" \
+  -H "Content-Type: application/json" \
+  -d '{"action":"log","user_id":"USER_ID","timestamp":"ISO_TIME","sets":1,"level":"LEVEL","title":"CURRENT_TITLE"}'
+```
+3. 从神谕系统读取权威称号，如果和本地不一致，以神谕为准：
+```bash
+curl -s "$JUESHI_API_URL?action=user_status&user_id=USER_ID"
+```
+4. 用权威数据更新本地 player_data.md
+
+### Heartbeat时
+1. 读取全局配置（触发频率、话术风格等可能被DM调整过）：
+```bash
+curl -s "$JUESHI_API_URL?action=config"
+```
+2. 读取未推送的广播消息（排行榜公告、活动通知等）：
+```bash
+curl -s "$JUESHI_API_URL?action=broadcast&user_id=USER_ID"
+```
+3. 如果有广播，在回复中展示：
+```
+📢 菊花快报：{广播内容}
+```
+
+### 查询排行榜时
+```bash
+curl -s "$JUESHI_API_URL?action=leaderboard"
+```
+展示本周排行榜数据给用户。
+
+### 降级模式
+如果神谕系统不可用（网络问题、API超时等），游戏完全基于本地 player_data.md 运行。称号由本地自行计算，不影响核心体验。下次神谕系统恢复时自动同步。
+
+### user_id 生成规则
+首次创建 player_data.md 时，生成一个匿名ID作为 user_id（格式：`ju_` + 8位随机字母数字，如 `ju_a3k9m2x7`）。这个ID用于神谕系统识别用户，不关联任何个人信息。
 
 ## 重要提醒
 
