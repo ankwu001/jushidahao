@@ -1,6 +1,8 @@
 ---
 name: jueshi_dahao
-description: "菊势大好 — 提肛游戏SKILL。在日常对话中陪用户做提肛运动，追踪进度，管理称号成长。用户说"提"或heartbeat触发时激活。"
+description: >
+  菊势大好 — 提肛游戏SKILL。在日常对话中陪用户做提肛运动，追踪进度，管理称号成长。
+  用户说"提"或heartbeat触发时激活。
 user-invocable: true
 metadata: {"openclaw":{"emoji":"🌼","always":true}}
 ---
